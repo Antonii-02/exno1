@@ -21,6 +21,73 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
-            <<include your coding and its corressponding output screen shots here>>
+```
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+df = pd.read_csv('/content/Data_set.csv')
+
+numeric_cols = ['num_episodes', 'rating', 'current_overall_rank', 'lifetime_popularity_rank', 'watchers']
+
+# IQR Detection
+outlier_summary = []
+
+for col in numeric_cols:
+    data = df[col].dropna()
+
+    Q1 = data.quantile(0.25)
+    Q3 = data.quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    iqr_outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
+
+    # Z-Score Detection (|z| > 3)
+    z_scores = np.abs(stats.zscore(data))
+    z_outliers_idx = data.index[z_scores > 3]
+
+    outlier_summary.append({
+        'Column': col,
+        'Q1': Q1,
+        'Q3': Q3,
+        'IQR': IQR,
+        'Lower Limit (IQR)': lower_bound,
+        'Upper Limit (IQR)': upper_bound,
+        'IQR Outliers Count': len(iqr_outliers),
+        'Z-Score Outliers Count (|Z|>3)': len(z_outliers_idx),
+        'Outlier Rows (IQR Indices)': iqr_outliers.index.tolist()
+    })
+
+outliers_df = pd.DataFrame(outlier_summary)
+print(outliers_df[['Column', 'Lower Limit (IQR)', 'Upper Limit (IQR)', 'IQR Outliers Count', 'Z-Score Outliers Count (|Z|>3)']])
+
+# Let's inspect specific outlier rows for key columns
+for item in outlier_summary:
+    if item['IQR Outliers Count'] > 0:
+        col = item['Column']
+        print(f"\n--- Outliers in '{col}' (IQR Method) ---")
+        print(df.loc[item['Outlier Rows (IQR Indices)'], ['show_name', 'country', col]])
+
+# Create visualization
+fig, axes = plt.subplots(2, 3, figsize=(15, 8))
+axes = axes.flatten()
+
+for i, col in enumerate(numeric_cols):
+    sns.boxplot(y=df[col], ax=axes[i], color='lightblue')
+    axes[i].set_title(f'Boxplot of {col}', fontsize=12, fontweight='bold')
+    axes[i].set_ylabel('')
+
+# Hide unused subplot (since 5 numeric cols in 2x3 grid)
+fig.delaxes(axes[5])
+
+plt.tight_layout()
+plt.savefig('outliers_boxplots.png')
+plt.close()
+print("\nBoxplot saved successfully.")
+```
 # Result
           <<include your Result here>>
