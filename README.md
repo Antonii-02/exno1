@@ -1,4 +1,4 @@
-# Exno:1
+l# Exno:1
 Data Cleaning Process
 
 # AIM
@@ -89,4 +89,4 @@ plt.tight_layout()
 
 ```
 # Result
-          <<include your Result here>>
+
