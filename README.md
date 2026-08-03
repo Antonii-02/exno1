@@ -85,9 +85,8 @@ for i, col in enumerate(numeric_cols):
 fig.delaxes(axes[5])
 
 plt.tight_layout()
-plt.savefig('outliers_boxplots.png')
-plt.close()
-print("\nBoxplot saved successfully.")
+# The plot will be displayed automatically by matplotlib in the notebook output
+
 ```
 # Result
           <<include your Result here>>
