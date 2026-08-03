@@ -93,4 +93,19 @@ plt.tight_layout()
 <img width="845" height="507" alt="Screenshot 2026-08-03 151642" src="https://github.com/user-attachments/assets/5c9ed847-5f47-4dec-80e4-1234de084cf1" />
 
 # Result
-Executive SummaryThis script performs Outlier Detection and Exploratory Data Analysis (EDA) on 5 numerical features (num_episodes, rating, current_overall_rank, lifetime_popularity_rank, watchers) from a dataset (Data_set.csv). It identifies extreme values that could distort downstream statistical analysis or machine learning models.1. Key Processes ExecutedData Selection: Filters the dataset to focus exclusively on key numeric metrics.IQR Outlier Detection: Calculates $Q_1$ (25th percentile) and $Q_3$ (75th percentile) to set lower/upper boundaries ($Q_1 - 1.5 \times \text{IQR}$ and $Q_3 + 1.5 \times \text{IQR}$).Z-Score Outlier Detection: Computes standard deviation scores ($Z = \frac{X - \mu}{\sigma}$) and flags values exceeding $\vert{}Z\vert{} > 3$.Outlier Inspection: Summarizes outlier counts and outputs affected show names and countries for manual review.Data Visualization: Generates a 2x3 grid of boxplots using seaborn to visually display data distributions and extreme points.2. Why These Methods Were ImplementedIQR Method: A robust, non-parametric approach ideal for skewed features like watchers or num_episodes, as it isn't easily distorted by extreme values.Z-Score Method: A parametric approach best suited for roughly normal distributions to flag true statistical anomalies beyond 3 standard deviations.Boxplots: Provides immediate visual evidence of distribution skewness, spread, and isolated extreme points across all columns.3. Next StepsCapping / Winsorization: Replace extreme outliers with upper/lower threshold boundaries.Log Transformation: Apply $\log(x + 1)$ to handle highly right-skewed columns like watchers.
+```
+# Outlier Detection & EDA Summary
+## Key Processes Executed
+1. Data Selection: Loads dataset and filters 5 target numerical columns (num_episodes, rating, current_overall_rank, lifetime_popularity_rank, watchers).
+2. IQR Calculation: Identifies outliers outside $[Q_1 - 1.5 \times \text{IQR},\ Q_3 + 1.5 \times \text{IQR}]$.
+3. Z-Score Calculation: Identifies extreme statistical anomalies exceeding 3 standard deviations ($\vert{}Z\vert{} > 3$).
+4. Outlier Inspection: Summarizes outlier counts and outputs affected show names and countries for manual review.
+5. Visualization: Plots a $2 \times 3$ grid of boxplots using seaborn to inspect data distribution and skewness.
+## Why These Methods Were Chosen
+1.IQR Method: Non-parametric technique that works well on heavily skewed data like watchers or num_episodes.
+2.Z-Score Method: Parametric technique best for normally distributed features to flag true extreme anomalies.
+3.Boxplots: Gives an instant visual overview of spread, median, and isolated extreme points.
+## Recommended Next Steps
+1.Capping (Winsorization): Clamp extreme values to lower/upper threshold boundaries.
+2.Log Transformation: Apply $\log(x+1)$ to compress skewed metrics before training models.
+```
