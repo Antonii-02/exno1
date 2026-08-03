@@ -94,6 +94,7 @@ plt.tight_layout()
 
 # Result
 ```
+
 # Outlier Detection & EDA Summary
 ## Key Processes Executed
 1. Data Selection: Loads dataset and filters 5 target numerical columns (num_episodes, rating, current_overall_rank, lifetime_popularity_rank, watchers).
@@ -108,4 +109,5 @@ plt.tight_layout()
 ## Recommended Next Steps
 1.Capping (Winsorization): Clamp extreme values to lower/upper threshold boundaries.
 2.Log Transformation: Apply $\log(x+1)$ to compress skewed metrics before training models.
+
 ```
