@@ -88,5 +88,9 @@ plt.tight_layout()
 # The plot will be displayed automatically by matplotlib in the notebook output
 
 ```
+<img width="847" height="591" alt="Screenshot 2026-08-03 151600" src="https://github.com/user-attachments/assets/38d7d571-46b0-4ac9-acd5-e1c25c320e69" />
+<img width="832" height="388" alt="Screenshot 2026-08-03 151628" src="https://github.com/user-attachments/assets/77902402-3f42-45e6-8e81-3970bfb4da71" />
+<img width="845" height="507" alt="Screenshot 2026-08-03 151642" src="https://github.com/user-attachments/assets/5c9ed847-5f47-4dec-80e4-1234de084cf1" />
+
 # Result
 
